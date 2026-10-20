@@ -1,0 +1,28 @@
+# Each repo in place.toml needs a line here.
+/.github/
+/agent-skills/
+/calendar-sync/
+/clubspot-sdk/
+/commodore/
+/gam/
+/gsuite-sdk/
+/isthmia/
+/platform/
+/ts-config/
+
+# Local plan drafts. Plans live on issues.
+.plans/
+
+# Personal agent, editor, and tool config
+CLAUDE.md
+.claude/
+.cursor/
+.vscode/
+.idea/
+.env*
+mise.local.toml
+mise.local.lock
+place.local.toml
+
+# mise state
+.mise/
