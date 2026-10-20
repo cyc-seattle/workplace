@@ -1,0 +1,33 @@
+[settings]
+lockfile = true
+# mise's versions service doesn't list new place releases yet, so ask GitHub directly.
+use_versions_host = false
+
+[tools]
+"packslip:github.com/ungood/place" = "0.2.0"
+"npm:prettier" = "3"
+node = "22"
+
+[tasks.install]
+description = "Install the tools in mise.lock"
+run = "mise install"
+
+[tasks.sync]
+description = "Clone and update the repos listed in place.toml"
+run = "place sync"
+
+[tasks.format]
+description = "Format all files"
+run = "prettier --write ."
+
+[tasks.check]
+description = "Check formatting and the workplace config"
+run = ["prettier --check .", "place doctor"]
+
+[tasks.test]
+description = "Run the tests. This repo has no tests."
+run = "true"
+
+[tasks.ci]
+description = "Run every check. GitHub can't run them: .github/ is a checkout, not this repo's workflows."
+depends = ["check", "test"]

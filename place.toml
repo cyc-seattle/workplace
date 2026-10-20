@@ -1,0 +1,29 @@
+[repos.".github"]
+url = "git@github.com:cyc-seattle/.github.git"
+
+[repos.agent-skills]
+url = "git@github.com:cyc-seattle/agent-skills.git"
+
+[repos.calendar-sync]
+url = "git@github.com:cyc-seattle/calendar-sync.git"
+
+[repos.clubspot-sdk]
+url = "git@github.com:cyc-seattle/clubspot-sdk.git"
+
+[repos.commodore]
+url = "git@github.com:cyc-seattle/commodore.git"
+
+[repos.gam]
+url = "git@github.com:cyc-seattle/gam.git"
+
+[repos.gsuite-sdk]
+url = "git@github.com:cyc-seattle/gsuite-sdk.git"
+
+[repos.isthmia]
+url = "git@github.com:cyc-seattle/isthmia.git"
+
+[repos.platform]
+url = "git@github.com:cyc-seattle/platform.git"
+
+[repos.ts-config]
+url = "git@github.com:cyc-seattle/ts-config.git"
