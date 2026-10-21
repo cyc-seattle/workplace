@@ -4,6 +4,14 @@ This directory is a [place](https://github.com/ungood/place) workplace: the cyc-
 
 - This repo tracks only the workplace's own files. `.gitignore` ignores every checkout.
 - `.github/` is a checkout of cyc-seattle/.github, not this repo's workflows, so this repo has no CI. Run `mise run ci` before opening a PR.
-- Work that spans repos is planned on an issue in the repo that owns the outcome, usually cyc-seattle/isthmia#185 or its phase issues. Each repo gets its own PR.
+- Work that spans repos is planned on an issue in the repo that owns the outcome. Each repo gets its own PR.
 - `mise run sync` never switches branches, so a checkout may be on a feature branch. Check `place status -s` before assuming a repo is on `main`.
 - Repo settings, including this repo's, are code in platform's `bootstrap` stack (`stacks/bootstrap/github.ts`).
+
+## Plans, research, and docs
+
+- **`.plans/`** is git-ignored scratch space for coordinating work: briefs for agents, handoffs, and backups. Nothing in it is kept.
+- **`research/`** holds what comes out of planning conversations: research, comparisons, and draft plans. Name each file `YYYY-MM-DD-<slug>.md`, for the day the work started. Commit them, and leave them as they were once their work is done.
+- **A plan goes into an issue** in the repo that owns the outcome. Once posted, the issue is the source of truth, and the research file isn't updated to match it.
+- **Living documentation** lives in each repo's `docs/` folder, beside its README and `AGENTS.md`. When work lands, move the facts that last into `docs/`. Docs and code cite issues, never research files.
+- **This repo is public.** Research holds no secrets, personal details, or private figures.

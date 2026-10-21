@@ -1,0 +1,4 @@
+# Every top-level directory is a checkout with its own formatting, whether place.toml or place.local.toml
+# lists it. Only this repo's own directories are formatted here.
+/*/
+!/research/
