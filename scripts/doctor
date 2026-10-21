@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# Checks what work under the workplace needs: the gcloud login, ADC, CYC's cluster, and the
+# checkouts' ignored directories. It only reports, and never prompts or opens a browser, so agents
+# can run it. Each failure names its fix.
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+context="gke_${GCP_PROJECT}_us-west1_cyc"
+
+failures=()
+fail() { failures+=("$1 -- fix: $2"); }
+
+# The first line of a command's error output, which is where gcloud and kubectl say what failed.
+first_error() { head -n1 <<<"$1"; }
+show() { printf '%-24s%s\n' "$1:" "$2"; }
+
+for tool in gcloud gke-gcloud-auth-plugin kubectl timeout; do
+  command -v "$tool" >/dev/null 2>&1 || fail "$tool is not on PATH" "mise run install"
+done
+
+# `print-access-token` forces a refresh, so an expired login fails here even though
+# `gcloud config get-value account` still reports the stale account.
+account="$(gcloud config get-value account 2>/dev/null || true)"
+show "gcloud configuration" "${CLOUDSDK_ACTIVE_CONFIG_NAME:-(default)}"
+show "gcloud account" "${account:-(none)}"
+login_ok=0
+if ! gcloud config configurations describe "$CLOUDSDK_ACTIVE_CONFIG_NAME" >/dev/null 2>&1; then
+  fail "the $CLOUDSDK_ACTIVE_CONFIG_NAME gcloud configuration doesn't exist" "gcloud config configurations create $CLOUDSDK_ACTIVE_CONFIG_NAME, then gcloud auth login"
+elif [[ -z "$account" ]]; then
+  fail "gcloud has no active account" "gcloud auth login"
+elif ! out="$(timeout 30 gcloud auth print-access-token 2>&1 >/dev/null)"; then
+  fail "gcloud login is missing or has expired ($(first_error "$out"))" "gcloud auth login"
+else
+  login_ok=1
+fi
+
+# Each checkout with an auth-adc task keeps its own ADC (its GOOGLE_APPLICATION_CREDENTIALS), so
+# check ADC as each of them sees it.
+for config in "$root"/*/mise.toml; do
+  repo="$(dirname "$config")"
+  name="$(basename "$repo")"
+  grep -q '^\[tasks\.auth-adc\]' "$config" || continue
+  adc="$(mise -C "$repo" env --json 2>/dev/null | jq -r '.GOOGLE_APPLICATION_CREDENTIALS // empty')"
+  show "$name ADC" "${adc:-(unset)}"
+  if [[ -z "$adc" || ! -f "$adc" ]]; then
+    fail "$name's ADC credentials file is missing (${adc:-unset})" "cd $name && mise run auth-adc"
+  elif ! out="$(GOOGLE_APPLICATION_CREDENTIALS="$adc" timeout 30 gcloud auth application-default print-access-token 2>&1 >/dev/null)"; then
+    fail "$name's ADC can't mint a token ($(first_error "$out"))" "cd $name && mise run auth-adc"
+  fi
+done
+
+# kubectl runs gke-gcloud-auth-plugin, which needs the gcloud login above.
+show "KUBECONFIG" "${KUBECONFIG:-(unset)}"
+if [[ "${KUBECONFIG:-}" != "$root/.kube/config" ]]; then
+  fail "KUBECONFIG isn't the workplace's ($root/.kube/config)" "run this as \`mise run doctor\`, or activate mise in your shell (\`mise activate\`)"
+elif [[ ! -s "$KUBECONFIG" ]]; then
+  fail "the workplace kubeconfig is missing" "mise run kube"
+else
+  current="$(kubectl config current-context 2>/dev/null || true)"
+  show "kube context" "${current:-(none)}"
+  if [[ "$current" != "$context" ]]; then
+    fail "the kube context is ${current:-unset}, not $context" "mise run kube"
+  elif [[ $login_ok -eq 1 ]] && ! out="$(timeout 30 kubectl auth whoami 2>&1 >/dev/null)"; then
+    # When the login is broken, that's already reported above.
+    fail "kubectl can't reach $context ($(first_error "$out"))" "mise run kube"
+  fi
+fi
+
+# A package that moved or was deleted leaves its ignored files (node_modules/, dist/) behind, and
+# scripts that list packages/* then see a package that isn't there.
+for dir in "$root"/*/packages/*/; do
+  [[ -d "$dir" ]] || continue
+  dir="${dir%/}"
+  repo="$(dirname "$(dirname "$dir")")"
+  [[ -e "$repo/.git" ]] || continue
+  rel="${dir#"$root"/}"
+  if [[ -z "$(git -C "$repo" ls-files -- "packages/$(basename "$dir")" | head -n1)" ]]; then
+    fail "$rel holds no tracked files, only ignored ones" "check nothing in it is needed, then rm -rf $rel"
+  fi
+done
+
+echo
+if [[ ${#failures[@]} -gt 0 ]]; then
+  echo "Failures:"
+  printf '  - %s\n' "${failures[@]}"
+  exit 1
+fi
+echo "All checks passed."

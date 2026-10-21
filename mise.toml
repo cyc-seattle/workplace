@@ -7,14 +7,37 @@ use_versions_host = false
 "packslip:github.com/ungood/place" = "0.2.0"
 "npm:prettier" = "3"
 node = "22"
+# Needs a system Python on macOS. `mise run install` adds gke-gcloud-auth-plugin, which kubectl runs.
+gcloud = "latest"
+kubectl = "1.36"
+# For `timeout`, which macOS lacks. bin/timeout runs it.
+coreutils = "latest"
+jq = "latest"
+
+[env]
+_.path = ["{{config_root}}/bin"]
+GCP_PROJECT = "cyc-admin-scripts"
+CLOUDSDK_CORE_PROJECT = "{{ env.GCP_PROJECT }}"
+# isthmia's configuration (its `mise run create-config`), so one login serves every checkout.
+CLOUDSDK_ACTIVE_CONFIG_NAME = "isthmia"
+# Holds only CYC's cluster (`mise run kube`), so nothing under the workplace reaches another one.
+KUBECONFIG = "{{config_root}}/.kube/config"
 
 [tasks.install]
-description = "Install the tools in mise.lock"
-run = "mise install"
+description = "Install the tools in mise.lock, and the GKE auth plugin kubectl runs"
+run = ["mise install", "gcloud components install gke-gcloud-auth-plugin --quiet"]
 
 [tasks.sync]
 description = "Clone and update the repos listed in place.toml"
 run = "place sync"
+
+[tasks.kube]
+description = "Write CYC's cluster into the workplace's private kubeconfig"
+run = "gcloud container clusters get-credentials cyc --region us-west1 --dns-endpoint --quiet"
+
+[tasks.doctor]
+description = "Check the gcloud login, ADC, the kube context, and stale directories in the checkouts"
+run = "./scripts/doctor"
 
 [tasks.format]
 description = "Format all files"
