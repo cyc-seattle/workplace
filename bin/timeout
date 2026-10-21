@@ -1,0 +1,3 @@
+#!/bin/sh
+# macOS has no `timeout`, and mise's coreutils is one binary that takes the command as its first argument.
+exec coreutils timeout "$@"

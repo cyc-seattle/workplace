@@ -26,3 +26,6 @@ place.local.toml
 
 # mise state
 .mise/
+
+# The workplace kubeconfig (`mise run kube`)
+/.kube/
