@@ -1,5 +1,4 @@
 [settings]
-lockfile = true
 # mise's versions service doesn't list new place releases yet, so ask GitHub directly.
 use_versions_host = false
 
@@ -24,7 +23,7 @@ CLOUDSDK_ACTIVE_CONFIG_NAME = "isthmia"
 KUBECONFIG = "{{config_root}}/.kube/config"
 
 [tasks.install]
-description = "Install the tools in mise.lock, and the GKE auth plugin kubectl runs"
+description = "Install the tools, and the GKE auth plugin kubectl runs"
 run = ["mise install", "gcloud components install gke-gcloud-auth-plugin --quiet"]
 
 [tasks.sync]
