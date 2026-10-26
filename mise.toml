@@ -21,6 +21,9 @@ CLOUDSDK_CORE_PROJECT = "{{ env.GCP_PROJECT }}"
 CLOUDSDK_ACTIVE_CONFIG_NAME = "isthmia"
 # Holds only CYC's cluster (`mise run kube`), so nothing under the workplace reaches another one.
 KUBECONFIG = "{{config_root}}/.kube/config"
+# One ADC login for every checkout (`mise run auth-adc`). The checkouts point ADC at their own
+# .gcloud/, which auth-adc links here, so their worktrees outside the workplace share it too.
+GOOGLE_APPLICATION_CREDENTIALS = "{{config_root}}/.gcloud/application_default_credentials.json"
 
 [tasks.install]
 description = "Install the tools, and the GKE auth plugin kubectl runs"
@@ -33,6 +36,10 @@ run = "place sync"
 [tasks.kube]
 description = "Write CYC's cluster into the workplace's private kubeconfig"
 run = "gcloud container clusters get-credentials cyc --region us-west1 --dns-endpoint --quiet"
+
+[tasks.auth-adc]
+description = "Log Application Default Credentials in once for every checkout and worktree"
+run = "./scripts/auth-adc"
 
 [tasks.doctor]
 description = "Check the gcloud login, ADC, the kube context, and stale directories in the checkouts"

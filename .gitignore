@@ -29,3 +29,6 @@ place.local.toml
 
 # The workplace kubeconfig (`mise run kube`)
 /.kube/
+
+# The workplace's ADC login (`mise run auth-adc`)
+/.gcloud/
