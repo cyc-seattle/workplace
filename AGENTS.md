@@ -7,6 +7,7 @@ This directory is a [place](https://github.com/ungood/place) workplace: the cyc-
 - Work that spans repos is planned on an issue in the repo that owns the outcome. Each repo gets its own PR.
 - `mise run sync` never switches branches, so a checkout may be on a feature branch. Check `place status -s` before assuming a repo is on `main`.
 - Run `mise run doctor` before work that needs gcloud or the cluster. It names the fix for each failure; a login fix needs the maintainer.
+- Application Default Credentials are one login for the whole workplace, in `.gcloud/` (`mise run auth-adc`). Each checkout's `.gcloud/application_default_credentials.json` links to it, so Orca worktrees outside the workplace share it too.
 - `KUBECONFIG` is the workplace's `.kube/config`, which holds only CYC's cluster. Run commands under the workplace's mise env, so `kubectl` never sees the machine's default kubeconfig. Never change the machine's current context.
 - `timeout` is on the workplace's PATH, through `bin/timeout`. Use it on anything that might hang.
 - Repo settings, including this repo's, are code in platform's `bootstrap` stack (`stacks/bootstrap/github.ts`).

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Logs Application Default Credentials in once for the whole workplace, into .gcloud/, and links each
+# checkout's ADC path to it. The links matter for Orca worktrees outside the workplace: they resolve
+# ADC through their main checkout's .gcloud/, so one login serves every checkout and worktree.
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+dir="$root/.gcloud"
+adc="$dir/application_default_credentials.json"
+
+# gcloud asks for confirmation when GOOGLE_APPLICATION_CREDENTIALS is set, even to this same file.
+if [[ "${1:-}" != --link-only ]]; then
+  mkdir -p "$dir"
+  env -u GOOGLE_APPLICATION_CREDENTIALS CLOUDSDK_CONFIG="$dir" gcloud auth application-default login
+  env -u GOOGLE_APPLICATION_CREDENTIALS CLOUDSDK_CONFIG="$dir" gcloud auth application-default set-quota-project "$GCP_PROJECT"
+fi
+
+for config in "$root"/*/mise.toml; do
+  repo="$(dirname "$config")"
+  grep -q '^\[tasks\.auth-adc\]' "$config" || continue
+  link="$repo/.gcloud/application_default_credentials.json"
+  [[ "$(readlink "$link" 2>/dev/null)" == "$adc" ]] && continue
+  mkdir -p "$(dirname "$link")"
+  # A checkout's own login becomes the workplace's if it has none yet. Otherwise it's replaced.
+  if [[ -f "$link" && ! -L "$link" && ! -e "$adc" ]]; then
+    mkdir -p "$dir"
+    mv "$link" "$adc"
+    echo "Moved ${link#"$root"/} to the workplace's ADC."
+  fi
+  ln -sfn "$adc" "$link"
+  echo "Linked ${link#"$root"/} to the workplace's ADC."
+done
