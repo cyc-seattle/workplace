@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cycsail-team-directus": {
+      "type": "http",
+      "url": "https://directus.cycsail.team/mcp"
+    }
+  }
+}

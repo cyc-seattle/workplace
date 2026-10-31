@@ -10,6 +10,7 @@ This directory is a [place](https://github.com/ungood/place) workplace: the cyc-
 - Application Default Credentials are one login for the whole workplace, in `.gcloud/` (`mise run auth-adc`). Each checkout's `.gcloud/application_default_credentials.json` links to it, so Orca worktrees outside the workplace share it too.
 - `KUBECONFIG` is the workplace's `.kube/config`, which holds only CYC's cluster. Run commands under the workplace's mise env, so `kubectl` never sees the machine's default kubeconfig. Never change the machine's current context.
 - `timeout` is on the workplace's PATH, through `bin/timeout`. Use it on anything that might hang.
+- `.mcp.json` connects Claude Code to prod Directus's MCP server as `cycsail-team-directus`. Run `/mcp` and sign in with your own Directus login. The agent gets only your access.
 - Repo settings, including this repo's, are code in platform's `bootstrap` stack (`stacks/bootstrap/github.ts`).
 
 ## Plans, research, and docs
