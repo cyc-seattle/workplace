@@ -39,11 +39,11 @@ run = "gcloud container clusters get-credentials cyc --region us-west1 --dns-end
 
 [tasks.auth-adc]
 description = "Log Application Default Credentials in once for every checkout and worktree"
-run = "./scripts/auth-adc"
+run = "{{config_root}}/scripts/auth-adc"
 
 [tasks.doctor]
 description = "Check the gcloud login, ADC, the kube context, and stale directories in the checkouts"
-run = "./scripts/doctor"
+run = "{{config_root}}/scripts/doctor"
 
 [tasks.format]
 description = "Format all files"

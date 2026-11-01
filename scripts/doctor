@@ -43,12 +43,12 @@ elif ! out="$(GOOGLE_APPLICATION_CREDENTIALS="$adc" timeout 30 gcloud auth appli
   fail "the workplace's ADC can't mint a token ($(first_error "$out"))" "mise run auth-adc"
 fi
 
-# A checkout with an auth-adc task points ADC at its own .gcloud/, as do its worktrees, so that path
-# must link to the workplace's.
+# A checkout that sets GOOGLE_APPLICATION_CREDENTIALS points ADC at its own .gcloud/, as do its
+# worktrees, so that path must link to the workplace's.
 for config in "$root"/*/mise.toml; do
   repo="$(dirname "$config")"
   name="$(basename "$repo")"
-  grep -q '^\[tasks\.auth-adc\]' "$config" || continue
+  grep -q '^GOOGLE_APPLICATION_CREDENTIALS' "$config" || continue
   seen="$(mise -C "$repo" env --json 2>/dev/null | jq -r '.GOOGLE_APPLICATION_CREDENTIALS // empty')"
   if [[ "$(readlink -f "$seen" 2>/dev/null)" != "$(readlink -f "$adc")" ]]; then
     fail "$name's ADC (${seen:-unset}) isn't the workplace's" "mise run auth-adc -- --link-only"

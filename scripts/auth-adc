@@ -17,7 +17,7 @@ fi
 
 for config in "$root"/*/mise.toml; do
   repo="$(dirname "$config")"
-  grep -q '^\[tasks\.auth-adc\]' "$config" || continue
+  grep -q '^GOOGLE_APPLICATION_CREDENTIALS' "$config" || continue
   link="$repo/.gcloud/application_default_credentials.json"
   [[ "$(readlink "$link" 2>/dev/null)" == "$adc" ]] && continue
   mkdir -p "$(dirname "$link")"
