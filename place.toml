@@ -25,5 +25,8 @@ url = "git@github.com:cyc-seattle/isthmia.git"
 [repos.platform]
 url = "git@github.com:cyc-seattle/platform.git"
 
+[repos.sail-team]
+url = "git@github.com:cyc-seattle/sail-team.git"
+
 [repos.ts-config]
 url = "git@github.com:cyc-seattle/ts-config.git"
