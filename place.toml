@@ -4,9 +4,6 @@ url = "git@github.com:cyc-seattle/.github.git"
 [repos.agent-skills]
 url = "git@github.com:cyc-seattle/agent-skills.git"
 
-[repos.calendar-sync]
-url = "git@github.com:cyc-seattle/calendar-sync.git"
-
 [repos.clubspot-sdk]
 url = "git@github.com:cyc-seattle/clubspot-sdk.git"
 

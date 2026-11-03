@@ -1,7 +1,6 @@
 # Each repo in place.toml needs a line here.
 /.github/
 /agent-skills/
-/calendar-sync/
 /clubspot-sdk/
 /commodore/
 /gam/
