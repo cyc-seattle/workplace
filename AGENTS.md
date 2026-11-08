@@ -1,5 +1,7 @@
 # AGENTS.md
 
+Follow `cyc:conventions` (the rules shared by every cyc-seattle repo).
+
 This directory is a [place](https://github.com/ungood/place) workplace: the cyc-seattle repos checked out side by side. `place.toml` lists them. Each is an independent git repo with its own `AGENTS.md`; read that before working in it.
 
 - This repo tracks only the workplace's own files. `.gitignore` ignores every checkout.
