@@ -8,7 +8,7 @@ use_versions_host = false
 node = "22"
 # Needs a system Python on macOS. `mise run install` adds gke-gcloud-auth-plugin, which kubectl runs.
 gcloud = "latest"
-kubectl = "1.36"
+kubectl = "1.37.2"
 # For `timeout`, which macOS lacks. bin/timeout runs it.
 coreutils = "latest"
 jq = "latest"
