@@ -21,6 +21,7 @@ CLAUDE.md
 .idea/
 .env*
 mise.local.toml
+mise.*.local.toml
 mise.local.lock
 place.local.toml
 
