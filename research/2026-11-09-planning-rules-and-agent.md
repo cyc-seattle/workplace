@@ -48,27 +48,27 @@ The engine stops deciding how many coaches, RIBs or boats an activity needs. It 
 
 ### Hard settings and rules
 
-| Today's input | Where | Proposal |
-| --- | --- | --- |
-| `sailors_per_coach` | offering | **Keep, move to the program** (new `plan_programs`) |
-| `coach_level_key` | offering | **Keep, move to the program** as `staff_level_key` |
-| `min_coaches` | offering | **Rule** ("never fewer than 2 on the water") |
-| `required_qualification` | offering | **Drop.** The program's staff level carries its qualifications |
-| `ribs_per_coach` | offering | **Drop.** RIBs are allocated |
-| `byob_share` | offering | **Rule** ("about a third bring their own boat") |
-| `fixed_coaches`, `fixed_ribs`, `fixed_boats` | offering, activity | **Drop.** The allocation is the count |
-| `coach_position_key`, `coach_position_pay` | offering | **Drop.** A salaried position is allocated to a block like any staff; a rule says who coaches what |
-| `plan_offering_boat_classes` (class and share) | offering | **Rule** ("Guppies sail Sailqubes; the Harpoon can take up to 10 instead") |
-| `plan_activity_block_rules` (offerings, weekdays, dates, level, salaried staff) | Operations Plan | **Rule** ("J-Pod and K-Pod share coaches on Wednesdays"). The agent writes concrete blocks |
-| `plan_activity_resources` | activity | **Move to the block**, as a resource allocation |
-| `boat_classes.sailors_per_boat` | catalog | **Keep** |
-| Boat inventory | none | **Add** a `quantity` to `plan_boat_rates`, so the engine can check boats against it |
-| `plan_resources.quantity` (RIBs and other equipment) | Operations Plan | **Keep.** It's the inventory the engine checks |
-| `rib_resource_kind_id` | Operations Plan | **Keep**, only to say that a RIB's hours are its time on the water |
-| Offering dates, capacity, `target_enrollment`, `fill_rate`, price, `cogs_rate` | offering | **Keep** |
-| Activity date, times, `on_water_minutes`, setup, put-away, kind, `uses_boats`, trip | activity | **Keep** |
-| Staff levels, salaried positions and bookings, rates, resources' costs, boat rates, pools, revenue charges, bonus owners, closed dates, budget and labor lines, trips | plans | **Keep.** These are money settings, not allocation |
-| `plan_formulas` | design only | **Drop from the design.** Revenue charges cover the percentages, and rules cover the rest |
+| Today's input                                                                                                                                                         | Where              | Proposal                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------- |
+| `sailors_per_coach`                                                                                                                                                   | offering           | **Keep, move to the program** (new `plan_programs`)                                                |
+| `coach_level_key`                                                                                                                                                     | offering           | **Keep, move to the program** as `staff_level_key`                                                 |
+| `min_coaches`                                                                                                                                                         | offering           | **Rule** ("never fewer than 2 on the water")                                                       |
+| `required_qualification`                                                                                                                                              | offering           | **Drop.** The program's staff level carries its qualifications                                     |
+| `ribs_per_coach`                                                                                                                                                      | offering           | **Drop.** RIBs are allocated                                                                       |
+| `byob_share`                                                                                                                                                          | offering           | **Rule** ("about a third bring their own boat")                                                    |
+| `fixed_coaches`, `fixed_ribs`, `fixed_boats`                                                                                                                          | offering, activity | **Drop.** The allocation is the count                                                              |
+| `coach_position_key`, `coach_position_pay`                                                                                                                            | offering           | **Drop.** A salaried position is allocated to a block like any staff; a rule says who coaches what |
+| `plan_offering_boat_classes` (class and share)                                                                                                                        | offering           | **Rule** ("Guppies sail Sailqubes; the Harpoon can take up to 10 instead")                         |
+| `plan_activity_block_rules` (offerings, weekdays, dates, level, salaried staff)                                                                                       | Operations Plan    | **Rule** ("J-Pod and K-Pod share coaches on Wednesdays"). The agent writes concrete blocks         |
+| `plan_activity_resources`                                                                                                                                             | activity           | **Move to the block**, as a resource allocation                                                    |
+| `boat_classes.sailors_per_boat`                                                                                                                                       | catalog            | **Keep**                                                                                           |
+| Boat inventory                                                                                                                                                        | none               | **Add** a `quantity` to `plan_boat_rates`, so the engine can check boats against it                |
+| `plan_resources.quantity` (RIBs and other equipment)                                                                                                                  | Operations Plan    | **Keep.** It's the inventory the engine checks                                                     |
+| `rib_resource_kind_id`                                                                                                                                                | Operations Plan    | **Keep**, only to say that a RIB's hours are its time on the water                                 |
+| Offering dates, capacity, `target_enrollment`, `fill_rate`, price, `cogs_rate`                                                                                        | offering           | **Keep**                                                                                           |
+| Activity date, times, `on_water_minutes`, setup, put-away, kind, `uses_boats`, trip                                                                                   | activity           | **Keep**                                                                                           |
+| Staff levels, salaried positions and bookings, rates, resources' costs, boat rates, pools, revenue charges, bonus owners, closed dates, budget and labor lines, trips | plans              | **Keep.** These are money settings, not allocation                                                 |
+| `plan_formulas`                                                                                                                                                       | design only        | **Drop from the design.** Revenue charges cover the percentages, and rules cover the rest          |
 
 What stays hard is what the engine needs to price a plan, or check an allocation against. Everything that's a planner's judgment about staffing becomes a rule.
 
@@ -101,12 +101,12 @@ Nothing records which rule made which allocation (decision 25). The agent's repo
 
 The engine checks allocations against hard settings and inventory. New checks:
 
-| Code | When | Example |
-| --- | --- | --- |
-| `over_inventory_boats` | Boats of one class allocated at the same time on a date exceed the Operations Plan's quantity | July 13: 14 Sailqubes allocated, 12 available (Guppies 9, Minnows 5) |
-| `over_inventory_resource` | RIBs, or any resource with a quantity, allocated at the same time exceed it | July 13: 7 RIBs allocated, 6 available |
-| `over_capacity` | A block's target sailors exceed what its allocation can safely take. See [Capacity](#capacity). | July 13, Guppies: 14 sailors, but the allocation takes 10 (1 Level 1 Instructor at 10 per coach; 7 Sailqubes at 2 per boat take 14) |
-| `unallocated_activity` | An activity other than travel is in no block, or its block has no staff | Aug 2, J-Pod practice has no staff |
+| Code                      | When                                                                                            | Example                                                                                                                             |
+| ------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `over_inventory_boats`    | Boats of one class allocated at the same time on a date exceed the Operations Plan's quantity   | July 13: 14 Sailqubes allocated, 12 available (Guppies 9, Minnows 5)                                                                |
+| `over_inventory_resource` | RIBs, or any resource with a quantity, allocated at the same time exceed it                     | July 13: 7 RIBs allocated, 6 available                                                                                              |
+| `over_capacity`           | A block's target sailors exceed what its allocation can safely take. See [Capacity](#capacity). | July 13, Guppies: 14 sailors, but the allocation takes 10 (1 Level 1 Instructor at 10 per coach; 7 Sailqubes at 2 per boat take 14) |
+| `unallocated_activity`    | An activity other than travel is in no block, or its block has no staff                         | Aug 2, J-Pod practice has no staff                                                                                                  |
 
 These existing checks stay: a salaried position double-booked across overlapping blocks, an activity on a closed date, a boat class with no sailors per boat, and the data warnings (a missing account, a missing row, a program with no area, and the rest). These go away: `unqualified_level` (now part of `over_capacity`) and `no_coach_level` (a staff row always names a level).
 
