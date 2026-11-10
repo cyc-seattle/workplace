@@ -7,6 +7,7 @@ This directory is a [place](https://github.com/ungood/place) workplace: the cyc-
 - This repo tracks only the workplace's own files. `.gitignore` ignores every checkout.
 - `.github/` is a checkout of cyc-seattle/.github, not this repo's workflows, so this repo has no CI. Run `mise run ci` before opening a PR.
 - Work that spans repos is planned on an issue in the repo that owns the outcome. Each repo gets its own PR.
+- An issue lives in the repo whose code it changes. One with no home repo goes in this repo. Priority is the P0–P3 labels; there's no GitHub Project (cyc-seattle/.github#33).
 - `mise run sync` never switches branches, so a checkout may be on a feature branch. Check `place status -s` before assuming a repo is on `main`.
 - Run `mise run doctor` before work that needs gcloud or the cluster. It names the fix for each failure; a login fix needs the maintainer.
 - Application Default Credentials are one login for the whole workplace, in `.gcloud/` (`mise run auth-adc`, from the workplace or any checkout). Each checkout that sets `GOOGLE_APPLICATION_CREDENTIALS` in its `mise.toml` gets its `.gcloud/application_default_credentials.json` linked to it, so Orca worktrees outside the workplace share it too.
