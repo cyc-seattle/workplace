@@ -44,6 +44,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 - 📋 Preferred names beside legal names ([cyc-seattle/platform#168](https://github.com/cyc-seattle/platform/issues/168)).
 - 📋 A staff view of each household, and a list of records to fix ([cyc-seattle/sail-team#29](https://github.com/cyc-seattle/sail-team/issues/29)).
 - 📋 See what's missing in each term's data, and fix what the sync can't ([cyc-seattle/platform#127](https://github.com/cyc-seattle/platform/issues/127)).
+- 📋 Say once what each program is: level, boat class, kind, and pathway ([cyc-seattle/platform#228](https://github.com/cyc-seattle/platform/issues/228)).
 - 📋 Sync fixes: [cyc-seattle/platform#157](https://github.com/cyc-seattle/platform/issues/157) (P1), [cyc-seattle/platform#158](https://github.com/cyc-seattle/platform/issues/158), [cyc-seattle/platform#169](https://github.com/cyc-seattle/platform/issues/169), [cyc-seattle/platform#196](https://github.com/cyc-seattle/platform/issues/196).
 
 ### Programs, coaches, and staff
