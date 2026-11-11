@@ -21,6 +21,7 @@ This directory is a [place](https://github.com/ungood/place) workplace: the cyc-
 
 - **`.plans/`** is git-ignored scratch space for coordinating work: briefs for agents, handoffs, and backups. Nothing in it is kept.
 - **`research/`** holds what comes out of planning conversations: research, comparisons, and draft plans. Name each file `YYYY-MM-DD-<slug>.md`, for the day the work started. Commit them, and leave them as they were once their work is done.
+- **`ROADMAP.md`** maps every feature issue across the repos, by area. When you open, close, or reprioritize a feature issue, update its line there.
 - **A plan goes into an issue** in the repo that owns the outcome. Once posted, the issue is the source of truth, and the research file isn't updated to match it.
 - **Living documentation** lives in each repo's `docs/` folder, beside its README and `AGENTS.md`. When work lands, move the facts that last into `docs/`. Docs and code cite issues, never research files.
 - **This repo is public.** Research holds no secrets, personal details, or private figures.
