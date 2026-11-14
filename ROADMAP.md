@@ -99,6 +99,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 ## Ideas without an issue yet
 
 These came from comparing the issues above with how CSC actually runs: the 2027 strategic plan's milestones, the monthly finance checklist, the season's household emails, and boat and trailer upkeep. Each one builds on data the platform already has.
+
 - 🚧 A fast merge queue: the dev deploy and integration tests take 22–45 minutes ([cyc-seattle/platform#161](https://github.com/cyc-seattle/platform/issues/161), P1; [cyc-seattle/.github#34](https://github.com/cyc-seattle/.github/issues/34), [cyc-seattle/.github#35](https://github.com/cyc-seattle/.github/issues/35)).
 
 ### Before registration opens (Feb 2027)
