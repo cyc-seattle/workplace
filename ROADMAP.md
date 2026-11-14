@@ -35,6 +35,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 - 📋 Safety rules, such as coach boats per sailboat, set by the finance committee ([cyc-seattle/platform#249](https://github.com/cyc-seattle/platform/issues/249)).
 - 🚧 Count boats and coach boats from the boat list, by date ([cyc-seattle/platform#126](https://github.com/cyc-seattle/platform/issues/126), which takes in [cyc-seattle/platform#206](https://github.com/cyc-seattle/platform/issues/206)).
 - 📋 Allocate for a full program, and cost it at expected enrollment, with capacity and breakeven figures ([cyc-seattle/platform#250](https://github.com/cyc-seattle/platform/issues/250)).
+- 📋 Winter programs that cross the year sit whole in one plan ([cyc-seattle/platform#252](https://github.com/cyc-seattle/platform/issues/252)).
 - 📋 Check the 2026 model against the treasurer's workbook ([cyc-seattle/platform#145](https://github.com/cyc-seattle/platform/issues/145)).
 - 📋 Planning fixes: [cyc-seattle/platform#208](https://github.com/cyc-seattle/platform/issues/208), [cyc-seattle/platform#139](https://github.com/cyc-seattle/platform/issues/139), [cyc-seattle/platform#138](https://github.com/cyc-seattle/platform/issues/138).
 
