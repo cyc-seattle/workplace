@@ -88,6 +88,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 
 - ✅ Four roles (Community, Team, Crew, Admin) and groups for extra access ([platform docs/access.md](https://github.com/cyc-seattle/platform/blob/main/docs/access.md)).
 - 📋 A clearer sign-in page, with tests so it stops breaking ([cyc-seattle/platform#152](https://github.com/cyc-seattle/platform/issues/152), P1), and Google sign-in fixes ([cyc-seattle/platform#201](https://github.com/cyc-seattle/platform/issues/201), [cyc-seattle/platform#204](https://github.com/cyc-seattle/platform/issues/204)).
+- 📋 Crew: committees, positions and terms, with permissions kept in sync, for the Nov 17 board meeting ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263)).
 
 ### Keeping it running
 
