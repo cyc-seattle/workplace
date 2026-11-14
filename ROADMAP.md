@@ -31,7 +31,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 - 📋 Free-text rules and a planning agent that assigns staff and boats ([cyc-seattle/platform#149](https://github.com/cyc-seattle/platform/issues/149)).
 - 📋 Plan offerings on screen, and track each term against its plan ([cyc-seattle/sail-team#30](https://github.com/cyc-seattle/sail-team/issues/30)). The Tracking page's journeys are written and pending ([cyc-seattle/sail-team#37](https://github.com/cyc-seattle/sail-team/pull/37)).
 - 📋 Screens for the rates and shared costs every plan uses ([cyc-seattle/sail-team#31](https://github.com/cyc-seattle/sail-team/issues/31)).
-- 📋 Two kinds of planners: the finance committee sets the rules, and program directors plan within them ([research/2026-11-13-planning-roles.md](research/2026-11-13-planning-roles.md); issue to come).
+- 📋 Two kinds of planners: the finance committee sets the rules, and program directors plan within them ([cyc-seattle/platform#251](https://github.com/cyc-seattle/platform/issues/251)).
 - 📋 Safety rules, such as coach boats per sailboat, set by the finance committee ([cyc-seattle/platform#249](https://github.com/cyc-seattle/platform/issues/249)).
 - 🚧 Count boats and coach boats from the boat list, by date ([cyc-seattle/platform#126](https://github.com/cyc-seattle/platform/issues/126), which takes in [cyc-seattle/platform#206](https://github.com/cyc-seattle/platform/issues/206)).
 - 📋 Allocate for a full program, and cost it at expected enrollment, with capacity and breakeven figures ([cyc-seattle/platform#250](https://github.com/cyc-seattle/platform/issues/250)).
