@@ -35,7 +35,10 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 - ✅ Two kinds of planners: Plan Admin sets the rules (Operations Plan, freezing, plans active from a date), and Plan Writers plan programs ([cyc-seattle/platform#251](https://github.com/cyc-seattle/platform/issues/251)).
 - 📋 Safety rules, such as coach boats per sailboat, set by the finance committee ([cyc-seattle/platform#249](https://github.com/cyc-seattle/platform/issues/249)).
 - ✅ Count boats and coach boats by class from the asset list, by date, with charters by the day ([cyc-seattle/platform#126](https://github.com/cyc-seattle/platform/issues/126), which takes in [cyc-seattle/platform#206](https://github.com/cyc-seattle/platform/issues/206)).
-- ✅ Allocate for a full program, and cost it at expected enrollment, with capacity and breakeven figures ([cyc-seattle/platform#250](https://github.com/cyc-seattle/platform/issues/250)).
+- ✅ Allocate for a full program and check capacity at max, with breakeven figures ([cyc-seattle/platform#250](https://github.com/cyc-seattle/platform/issues/250)). A block costs every coach and boat it's given ([cyc-seattle/platform#287](https://github.com/cyc-seattle/platform/issues/287)).
+- ✅ One plan model: a Financial Plan holds its plans, freezing is one-way, and notes are short ([cyc-seattle/platform#276](https://github.com/cyc-seattle/platform/issues/276)).
+- ✅ The plan list edits in place: Active dates, Freeze, and drafts and archived plans on toggles ([cyc-seattle/sail-team#102](https://github.com/cyc-seattle/sail-team/issues/102)).
+- 📋 A draft's numbers are worked out again when a new engine deploys ([cyc-seattle/platform#284](https://github.com/cyc-seattle/platform/issues/284)).
 - ✅ Winter programs that cross the year sit whole in one plan ([cyc-seattle/platform#252](https://github.com/cyc-seattle/platform/issues/252)).
 - ✅ A P&L per term, and bonuses paid per term ([cyc-seattle/platform#255](https://github.com/cyc-seattle/platform/issues/255)).
 - 📋 Check the 2026 model against the treasurer's workbook ([cyc-seattle/platform#145](https://github.com/cyc-seattle/platform/issues/145)).
@@ -97,6 +100,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 - 📋 Backups outside Cloud SQL, a restore drill, and uptime checks ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170), P1).
 - 📋 Lower the cloud bill ([cyc-seattle/platform#171](https://github.com/cyc-seattle/platform/issues/171)).
 - 📋 Drop the merge queue: `main` deploys to dev after each merge, integration tests run after each deploy, and only maintainers merge while contributors push branches ([cyc-seattle/platform#280](https://github.com/cyc-seattle/platform/issues/280), P1).
+- ✅ A style guide in sail-team's Storybook and a ux-review skill ([cyc-seattle/sail-team#101](https://github.com/cyc-seattle/sail-team/issues/101)), a schema-review skill ([cyc-seattle/platform#275](https://github.com/cyc-seattle/platform/issues/275)), and a docs site for platform ([cyc-seattle/platform#278](https://github.com/cyc-seattle/platform/issues/278)).
 - 📋 Engineering upkeep lives in each repo's P2 and P3 issues and isn't listed here.
 
 ## Ideas without an issue yet
