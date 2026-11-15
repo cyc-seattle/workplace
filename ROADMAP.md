@@ -29,6 +29,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 - 🚧 Build the 2027 plan with a planner's agent. This is the MVP's last step ([cyc-seattle/workplace#6](https://github.com/cyc-seattle/workplace/issues/6) step 13).
 - 🚧 Planning as a set of easier reports ([cyc-seattle/sail-team#63](https://github.com/cyc-seattle/sail-team/issues/63)).
 - 📋 Free-text rules and a planning agent that assigns staff and boats ([cyc-seattle/platform#149](https://github.com/cyc-seattle/platform/issues/149)).
+- 📋 A QuickBooks Online sync into `actuals`, the step before tracking against the plan ([cyc-seattle/platform#274](https://github.com/cyc-seattle/platform/issues/274)).
 - 📋 Plan offerings on screen, and track each term against its plan ([cyc-seattle/sail-team#30](https://github.com/cyc-seattle/sail-team/issues/30)). The Tracking page's journeys are written and pending ([cyc-seattle/sail-team#37](https://github.com/cyc-seattle/sail-team/pull/37)).
 - 📋 Screens for the rates and shared costs every plan uses ([cyc-seattle/sail-team#31](https://github.com/cyc-seattle/sail-team/issues/31)).
 - ✅ Two kinds of planners: Plan Admin sets the rules (Operations Plan, freezing, plans active from a date), and Plan Writers plan programs ([cyc-seattle/platform#251](https://github.com/cyc-seattle/platform/issues/251)).
