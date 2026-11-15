@@ -16,6 +16,7 @@ This directory is a [place](https://github.com/ungood/place) workplace: the cyc-
 - `timeout` is on the workplace's PATH, through `bin/timeout`. Use it on anything that might hang.
 - `.mcp.json` connects Claude Code to prod Directus's MCP server as `cycsail-team-directus`. Run `/mcp` and sign in with your own Directus login. The agent gets only your access.
 - Repo settings, including this repo's, are code in platform's `bootstrap` stack (`stacks/bootstrap/github.ts`).
+- Only org admins and the `maintainers` team can update a repo's `main`, and the `contributors` team pushes branches (cyc-seattle/platform#280). GitHub makes even a maintainer bypass that rule to merge, so merge with `gh pr merge --squash --admin` once every check has passed. Auto-merge never fires, and no repo has a merge queue.
 
 ## Plans, research, and docs
 
