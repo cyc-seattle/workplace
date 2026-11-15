@@ -96,6 +96,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 
 - 📋 Backups outside Cloud SQL, a restore drill, and uptime checks ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170), P1).
 - 📋 Lower the cloud bill ([cyc-seattle/platform#171](https://github.com/cyc-seattle/platform/issues/171)).
+- 📋 Drop the merge queue: `main` deploys to dev after each merge, integration tests run after each deploy, and only maintainers merge while contributors push branches ([cyc-seattle/platform#280](https://github.com/cyc-seattle/platform/issues/280), P1).
 - 📋 Engineering upkeep lives in each repo's P2 and P3 issues and isn't listed here.
 
 ## Ideas without an issue yet
