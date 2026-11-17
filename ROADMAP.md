@@ -95,6 +95,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 - 📋 A clearer sign-in page, with tests so it stops breaking ([cyc-seattle/platform#152](https://github.com/cyc-seattle/platform/issues/152), P1), and Google sign-in fixes ([cyc-seattle/platform#201](https://github.com/cyc-seattle/platform/issues/201), [cyc-seattle/platform#204](https://github.com/cyc-seattle/platform/issues/204)).
 - 📋 Crew: committees, positions and terms, with permissions kept in sync, for the Nov 17 board meeting ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263)).
 - 📋 Links shown only to the people they're for, so role-only tools leave the account menu ([cyc-seattle/platform#272](https://github.com/cyc-seattle/platform/issues/272)).
+- 📋 More than one login for a person, such as a personal and a work email, each with the person's access ([cyc-seattle/platform#329](https://github.com/cyc-seattle/platform/issues/329), P2).
 
 ### Keeping it running
 
