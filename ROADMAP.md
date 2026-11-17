@@ -41,6 +41,7 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 - 📋 A draft's numbers are worked out again when a new engine deploys ([cyc-seattle/platform#284](https://github.com/cyc-seattle/platform/issues/284)).
 - ✅ Winter programs that cross the year sit whole in one plan ([cyc-seattle/platform#252](https://github.com/cyc-seattle/platform/issues/252)).
 - ✅ A P&L per term, and bonuses paid per term ([cyc-seattle/platform#255](https://github.com/cyc-seattle/platform/issues/255)).
+- 📋 Show revenue as enrollment × fee, with the card fees families pay shown apart ([cyc-seattle/platform#328](https://github.com/cyc-seattle/platform/issues/328)).
 - 📋 Check the 2026 model against the treasurer's workbook ([cyc-seattle/platform#145](https://github.com/cyc-seattle/platform/issues/145)).
 - 📋 Planning fixes: [cyc-seattle/platform#208](https://github.com/cyc-seattle/platform/issues/208), [cyc-seattle/platform#139](https://github.com/cyc-seattle/platform/issues/139), [cyc-seattle/platform#138](https://github.com/cyc-seattle/platform/issues/138).
 
