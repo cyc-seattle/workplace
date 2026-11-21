@@ -107,7 +107,8 @@ The public website leaves Wix with the 2027 programs and prices. Its pages come 
 
 - ✅ Four roles (Community, Team, Crew, Admin) and groups for extra access ([platform docs/access.md](https://github.com/cyc-seattle/platform/blob/main/docs/access.md)).
 - 📋 A clearer sign-in page, with tests so it stops breaking ([cyc-seattle/platform#152](https://github.com/cyc-seattle/platform/issues/152), P1), and Google sign-in fixes ([cyc-seattle/platform#201](https://github.com/cyc-seattle/platform/issues/201), [cyc-seattle/platform#204](https://github.com/cyc-seattle/platform/issues/204)).
-- 📋 Crew: volunteers and staff, with committees, positions, terms, qualifications such as first aid and SafeSport, public profiles for the website, and permissions kept in sync, by Dec 23 ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263), P1).
+- 📋 Crew: volunteers and staff, with committees, positions, terms, qualifications such as first aid and SafeSport, and public profiles for the website, by Dec 23 ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263), P1).
+- 📋 Permissions from Crew's committees and positions, kept in sync, after the launch ([cyc-seattle/platform#334](https://github.com/cyc-seattle/platform/issues/334), P2).
 - 📋 Links shown only to the people they're for, so role-only tools leave the account menu ([cyc-seattle/platform#272](https://github.com/cyc-seattle/platform/issues/272)).
 - 📋 More than one login for a person, such as a personal and a work email, each with the person's access ([cyc-seattle/platform#329](https://github.com/cyc-seattle/platform/issues/329), P2).
 
