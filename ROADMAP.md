@@ -25,8 +25,8 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 The public website leaves Wix with the 2027 programs and prices. Its pages come from the platform's own data, and its forms reach tools CSC runs itself ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150)). Everything below is P1. Backups ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170)) aren't needed by then.
 
 1. 📋 Crew tracks volunteers and staff, with positions, terms, qualifications, and the public profiles the crew page shows ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263)).
-2. 📋 Each catalog program is its own website page ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332)).
-3. 📋 A program page's dates, prices and Register button come from the Clubspot camps its classes link to ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333)).
+2. 📋 Program pages keep the site's structure and link to the catalog programs they cover, with three team categories ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332)).
+3. 📋 A program page's dates, prices and Register button come only from the Clubspot camps its classes link to, so the 2027 camps must be in Clubspot to show prices ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333)).
 4. 📋 FreeScout as the shared inbox for info@ ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182)).
 5. 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180)).
 6. 📋 The contact form emails info@, and the newsletter form signs up to Listmonk ([cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)).
@@ -91,7 +91,7 @@ The public website leaves Wix with the 2027 programs and prices. Its pages come 
 - ✅ Short links at cycsailing.center, managed in sail-team ([cyc-seattle/sail-team#55](https://github.com/cyc-seattle/sail-team/issues/55)).
 - ✅ gsuite-sync keeps class and program Google Groups up to date from the CRM.
 - 🚧 Public website off Wix, built from Directus ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150), [cyc-seattle/platform#210](https://github.com/cyc-seattle/platform/issues/210), [cyc-seattle/platform#211](https://github.com/cyc-seattle/platform/issues/211), [cyc-seattle/csc-website#8](https://github.com/cyc-seattle/csc-website/issues/8), [cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)). See [Website launch, Dec 23](#website-launch-dec-23).
-- 📋 Each catalog program is its own website page ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332), P1), with dates, prices and Register from Clubspot ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333), P1).
+- 📋 Program pages link to the catalog programs they cover ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332), P1), with dates, prices and Register from Clubspot ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333), P1).
 - 📋 How the programs are doing, and lists of households to contact ([cyc-seattle/sail-team#28](https://github.com/cyc-seattle/sail-team/issues/28)).
 - 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp, by Dec 23 ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180), P1).
 - 📋 Shared inbox on FreeScout, in place of Google's Collaborative Inbox, by Dec 23 ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182), P1).
