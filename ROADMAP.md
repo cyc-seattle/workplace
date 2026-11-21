@@ -20,6 +20,20 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 | Feb 22      | Summer camp and spring race team registration opens. Parent roster live for the season        |
 | Summer 2027 | Camp runs: coaches need rosters, attendance, and medical information on the dock              |
 
+## Website launch, Dec 23
+
+The public website leaves Wix with the 2027 programs and prices. Its pages come from the platform's own data, and its forms reach tools CSC runs itself ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150)). Everything below is P1.
+
+1. 📋 Crew tracks volunteers and staff, with positions, terms, qualifications, and the public profiles the crew page shows ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263)).
+2. 📋 Each catalog program is its own website page ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332)).
+3. 📋 A program page's dates, prices and Register button come from the Clubspot camps its classes link to ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333)).
+4. 📋 Backups before FreeScout and Listmonk hold real mail ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170)).
+5. 📋 FreeScout as the shared inbox for info@ ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182)).
+6. 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180)).
+7. 📋 The contact form emails info@, and the newsletter form signs up to Listmonk ([cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)).
+8. 📋 DNS in Cloud DNS with Google DKIM ([cyc-seattle/platform#210](https://github.com/cyc-seattle/platform/issues/210)), then the domain moves to the new site and Wix is cancelled ([cyc-seattle/platform#211](https://github.com/cyc-seattle/platform/issues/211)).
+9. 📋 Publish on each content change ([cyc-seattle/csc-website#8](https://github.com/cyc-seattle/csc-website/issues/8)), and the Google Analytics tag ([cyc-seattle/csc-website#10](https://github.com/cyc-seattle/csc-website/issues/10)).
+
 ## Where things stand
 
 ### Planning and finance
@@ -62,7 +76,6 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 
 - 📋 Program rosters for coaches: attendance, medical information, and contacts ([cyc-seattle/sail-team#39](https://github.com/cyc-seattle/sail-team/issues/39)).
 - 📋 A list of named coaches to assign to offerings, with hours and pay ([cyc-seattle/platform#125](https://github.com/cyc-seattle/platform/issues/125)).
-- 📋 Staff and volunteer certifications, such as first aid and SafeSport ([cyc-seattle/sail-team#60](https://github.com/cyc-seattle/sail-team/issues/60)).
 - 📋 Sync Clubspot administrators into Directus ([cyc-seattle/platform#162](https://github.com/cyc-seattle/platform/issues/162)).
 
 ### Boats and facilities
@@ -78,10 +91,11 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 
 - ✅ Short links at cycsailing.center, managed in sail-team ([cyc-seattle/sail-team#55](https://github.com/cyc-seattle/sail-team/issues/55)).
 - ✅ gsuite-sync keeps class and program Google Groups up to date from the CRM.
-- 🚧 Public website off Wix, built from Directus ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150), [cyc-seattle/platform#210](https://github.com/cyc-seattle/platform/issues/210), [cyc-seattle/platform#211](https://github.com/cyc-seattle/platform/issues/211), [cyc-seattle/csc-website#8](https://github.com/cyc-seattle/csc-website/issues/8), [cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)).
+- 🚧 Public website off Wix, built from Directus ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150), [cyc-seattle/platform#210](https://github.com/cyc-seattle/platform/issues/210), [cyc-seattle/platform#211](https://github.com/cyc-seattle/platform/issues/211), [cyc-seattle/csc-website#8](https://github.com/cyc-seattle/csc-website/issues/8), [cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)). See [Website launch, Dec 23](#website-launch-dec-23).
+- 📋 Each catalog program is its own website page ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332), P1), with dates, prices and Register from Clubspot ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333), P1).
 - 📋 How the programs are doing, and lists of households to contact ([cyc-seattle/sail-team#28](https://github.com/cyc-seattle/sail-team/issues/28)).
-- 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180)).
-- 📋 Shared inbox on FreeScout, in place of Google's Collaborative Inbox ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182), P1).
+- 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp, by Dec 23 ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180), P1).
+- 📋 Shared inbox on FreeScout, in place of Google's Collaborative Inbox, by Dec 23 ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182), P1).
 - 📋 Replace Todoist with a self-hosted task manager ([cyc-seattle/platform#181](https://github.com/cyc-seattle/platform/issues/181)).
 - 📋 Read Clubspot's events, messages, e-signatures, and accounting ([cyc-seattle/clubspot-sdk#11](https://github.com/cyc-seattle/clubspot-sdk/issues/11)).
 
@@ -93,13 +107,13 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 
 - ✅ Four roles (Community, Team, Crew, Admin) and groups for extra access ([platform docs/access.md](https://github.com/cyc-seattle/platform/blob/main/docs/access.md)).
 - 📋 A clearer sign-in page, with tests so it stops breaking ([cyc-seattle/platform#152](https://github.com/cyc-seattle/platform/issues/152), P1), and Google sign-in fixes ([cyc-seattle/platform#201](https://github.com/cyc-seattle/platform/issues/201), [cyc-seattle/platform#204](https://github.com/cyc-seattle/platform/issues/204)).
-- 📋 Crew: committees, positions and terms, with permissions kept in sync, for the Nov 17 board meeting ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263)).
+- 📋 Crew: volunteers and staff, with committees, positions, terms, qualifications such as first aid and SafeSport, public profiles for the website, and permissions kept in sync, by Dec 23 ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263), P1).
 - 📋 Links shown only to the people they're for, so role-only tools leave the account menu ([cyc-seattle/platform#272](https://github.com/cyc-seattle/platform/issues/272)).
 - 📋 More than one login for a person, such as a personal and a work email, each with the person's access ([cyc-seattle/platform#329](https://github.com/cyc-seattle/platform/issues/329), P2).
 
 ### Keeping it running
 
-- 📋 Backups outside Cloud SQL, a restore drill, and uptime checks ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170), P1).
+- 📋 Backups outside Cloud SQL, a restore drill, and uptime checks, before FreeScout and Listmonk launch ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170), P1).
 - 📋 Lower the cloud bill ([cyc-seattle/platform#171](https://github.com/cyc-seattle/platform/issues/171)).
 - 📋 Drop the merge queue: `main` deploys to dev after each merge, integration tests run after each deploy, and only maintainers merge while contributors push branches ([cyc-seattle/platform#280](https://github.com/cyc-seattle/platform/issues/280), P1).
 - ✅ A style guide in sail-team's Storybook and a ux-review skill ([cyc-seattle/sail-team#101](https://github.com/cyc-seattle/sail-team/issues/101)), a schema-review skill ([cyc-seattle/platform#275](https://github.com/cyc-seattle/platform/issues/275)), and a docs site for platform ([cyc-seattle/platform#278](https://github.com/cyc-seattle/platform/issues/278)).
@@ -137,5 +151,5 @@ These came from comparing the issues above with how CSC actually runs: the 2027 
 
 - [cyc-seattle/sail-team#1](https://github.com/cyc-seattle/sail-team/issues/1) has steps 4–17 unchecked, though Planning and Rosters have shipped. Check them off or close it.
 - [cyc-seattle/sail-team#65](https://github.com/cyc-seattle/sail-team/issues/65) is from the isthmia era: it describes the portal and Authentik groups. Team rosters shipped in [cyc-seattle/sail-team#38](https://github.com/cyc-seattle/sail-team/pull/38) and [cyc-seattle/sail-team#49](https://github.com/cyc-seattle/sail-team/issues/49). Close it or rewrite it for school rosters.
-- [cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180), [cyc-seattle/platform#181](https://github.com/cyc-seattle/platform/issues/181), and [cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182) still depend on isthmia issues and mention oauth2-proxy. platform's `docs/architecture.md` still links the isthmia copies under "Later".
+- [cyc-seattle/platform#181](https://github.com/cyc-seattle/platform/issues/181) still depends on isthmia issues and mentions oauth2-proxy. platform's `docs/architecture.md` still links the isthmia copies under "Later".
 - Most feature issues have no P0–P3 label, so priority only shows for engineering upkeep. Labeling the features above would make this page's order match the labels.
