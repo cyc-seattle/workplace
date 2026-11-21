@@ -94,6 +94,7 @@ The public website leaves Wix with the 2027 programs and prices. Its pages come 
 - 📋 Program pages link to the catalog programs they cover ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332), P1), with dates, prices and Register from Clubspot ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333), P1).
 - 📋 How the programs are doing, and lists of households to contact ([cyc-seattle/sail-team#28](https://github.com/cyc-seattle/sail-team/issues/28)).
 - 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp, by Dec 23 ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180), P1).
+- 📋 Newsletter subscribers become People in the CRM, after the launch ([cyc-seattle/platform#339](https://github.com/cyc-seattle/platform/issues/339)).
 - 📋 Shared inbox on FreeScout, in place of Google's Collaborative Inbox, by Dec 23 ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182), P1).
 - 📋 Replace Todoist with a self-hosted task manager ([cyc-seattle/platform#181](https://github.com/cyc-seattle/platform/issues/181)).
 - 📋 Read Clubspot's events, messages, e-signatures, and accounting ([cyc-seattle/clubspot-sdk#11](https://github.com/cyc-seattle/clubspot-sdk/issues/11)).
