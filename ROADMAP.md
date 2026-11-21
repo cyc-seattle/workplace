@@ -22,17 +22,16 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 
 ## Website launch, Dec 23
 
-The public website leaves Wix with the 2027 programs and prices. Its pages come from the platform's own data, and its forms reach tools CSC runs itself ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150)). Everything below is P1.
+The public website leaves Wix with the 2027 programs and prices. Its pages come from the platform's own data, and its forms reach tools CSC runs itself ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150)). Everything below is P1. Backups ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170)) aren't needed by then.
 
 1. 📋 Crew tracks volunteers and staff, with positions, terms, qualifications, and the public profiles the crew page shows ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263)).
 2. 📋 Each catalog program is its own website page ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332)).
 3. 📋 A program page's dates, prices and Register button come from the Clubspot camps its classes link to ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333)).
-4. 📋 Backups before FreeScout and Listmonk hold real mail ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170)).
-5. 📋 FreeScout as the shared inbox for info@ ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182)).
-6. 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180)).
-7. 📋 The contact form emails info@, and the newsletter form signs up to Listmonk ([cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)).
-8. 📋 DNS in Cloud DNS with Google DKIM ([cyc-seattle/platform#210](https://github.com/cyc-seattle/platform/issues/210)), then the domain moves to the new site and Wix is cancelled ([cyc-seattle/platform#211](https://github.com/cyc-seattle/platform/issues/211)).
-9. 📋 Publish on each content change ([cyc-seattle/csc-website#8](https://github.com/cyc-seattle/csc-website/issues/8)), and the Google Analytics tag ([cyc-seattle/csc-website#10](https://github.com/cyc-seattle/csc-website/issues/10)).
+4. 📋 FreeScout as the shared inbox for info@ ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182)).
+5. 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180)).
+6. 📋 The contact form emails info@, and the newsletter form signs up to Listmonk ([cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)).
+7. 📋 DNS in Cloud DNS with Google DKIM ([cyc-seattle/platform#210](https://github.com/cyc-seattle/platform/issues/210)), then the domain moves to the new site and Wix is cancelled ([cyc-seattle/platform#211](https://github.com/cyc-seattle/platform/issues/211)).
+8. 📋 Publish on each content change ([cyc-seattle/csc-website#8](https://github.com/cyc-seattle/csc-website/issues/8)), and the Google Analytics tag ([cyc-seattle/csc-website#10](https://github.com/cyc-seattle/csc-website/issues/10)).
 
 ## Where things stand
 
@@ -114,7 +113,7 @@ The public website leaves Wix with the 2027 programs and prices. Its pages come 
 
 ### Keeping it running
 
-- 📋 Backups outside Cloud SQL, a restore drill, and uptime checks, before FreeScout and Listmonk launch ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170), P1).
+- 📋 Backups outside Cloud SQL, a restore drill, and uptime checks ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170), P1).
 - 📋 Lower the cloud bill ([cyc-seattle/platform#171](https://github.com/cyc-seattle/platform/issues/171)).
 - 📋 Drop the merge queue: `main` deploys to dev after each merge, integration tests run after each deploy, and only maintainers merge while contributors push branches ([cyc-seattle/platform#280](https://github.com/cyc-seattle/platform/issues/280), P1).
 - ✅ A style guide in sail-team's Storybook and a ux-review skill ([cyc-seattle/sail-team#101](https://github.com/cyc-seattle/sail-team/issues/101)), a schema-review skill ([cyc-seattle/platform#275](https://github.com/cyc-seattle/platform/issues/275)), and a docs site for platform ([cyc-seattle/platform#278](https://github.com/cyc-seattle/platform/issues/278)).
