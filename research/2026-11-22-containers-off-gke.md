@@ -31,23 +31,23 @@ machine config that Pulumi writes. It runs upstream Kubernetes, with etcd and th
 also runs the apps. The apps' Kubernetes code doesn't change: `WebService`, `Workload` and `ScheduledJob` write the
 same objects, and only `src/` and `infra` learn about the new cluster.
 
-| Part                     | With k3s on Debian                                     | With Talos                                                                                                                                                                                                                                  |
-| ------------------------ | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In code                  | A boot script that installs k3s                        | The `@pulumiverse/talos` provider makes the cluster's keys, writes the machine config, applies it, starts etcd, and reads back the cluster's address. The keys live in `infra`'s state, encrypted by KMS.                                     |
-| The VM's image           | Google's Debian image                                  | Talos's GCP image, from Sidero's Image Factory, copied into a Cloud Storage bucket and made a Compute Engine image in `infra`.                                                                                                                 |
-| First boot               | The boot script runs                                   | Talos waits for its config on its API port, unauthenticated, until it gets one. Only IAP can reach that port, and Pulumi applies the config through a tunnel right after the VM starts. The config isn't put in instance metadata, which anyone who can read the project's VMs could read, because it holds the cluster's keys. |
-| Ingress                  | Traefik ships with k3s                                 | Traefik is installed from its Helm chart, with the Gateway API's CRDs. It listens on the node's ports 80 and 443 directly, in a namespace allowed to. No Service of type `LoadBalancer`, and no Google cloud controller, so nothing can create a paid load balancer. |
-| Network policies         | k3s enforces them                                      | Talos's default network (Flannel) ignores them, so `infra`'s namespace policies would silently do nothing. Cilium replaces it, as Talos documents, and also blocks pods from Google's metadata address.                                    |
-| Certificates             | cert-manager, DNS-01 through Cloud DNS                 | The same. cert-manager reaches Cloud DNS as its own Workload Identity, with a credential file that trades its Kubernetes token for a Google one.                                                                                             |
-| Disks                    | k3s's local-path storage                               | Talos mounts the data disk as a user volume, and Rancher's local-path provisioner serves volumes from it: Postgres, FreeScout's files. etcd and images stay on the boot disk.                                                              |
+| Part                       | With k3s on Debian                                    | With Talos                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In code                    | A boot script that installs k3s                       | The `@pulumiverse/talos` provider makes the cluster's keys, writes the machine config, applies it, starts etcd, and reads back the cluster's address. The keys live in `infra`'s state, encrypted by KMS.                                                                                                                                                                                          |
+| The VM's image             | Google's Debian image                                 | Talos's GCP image, from Sidero's Image Factory, copied into a Cloud Storage bucket and made a Compute Engine image in `infra`.                                                                                                                                                                                                                                                                     |
+| First boot                 | The boot script runs                                  | Talos waits for its config on its API port, unauthenticated, until it gets one. Only IAP can reach that port, and Pulumi applies the config through a tunnel right after the VM starts. The config isn't put in instance metadata, which anyone who can read the project's VMs could read, because it holds the cluster's keys.                                                                    |
+| Ingress                    | Traefik ships with k3s                                | Traefik is installed from its Helm chart, with the Gateway API's CRDs. It listens on the node's ports 80 and 443 directly, in a namespace allowed to. No Service of type `LoadBalancer`, and no Google cloud controller, so nothing can create a paid load balancer.                                                                                                                               |
+| Network policies           | k3s enforces them                                     | Talos's default network (Flannel) ignores them, so `infra`'s namespace policies would silently do nothing. Cilium replaces it, as Talos documents, and also blocks pods from Google's metadata address.                                                                                                                                                                                            |
+| Certificates               | cert-manager, DNS-01 through Cloud DNS                | The same. cert-manager reaches Cloud DNS as its own Workload Identity, with a credential file that trades its Kubernetes token for a Google one.                                                                                                                                                                                                                                                   |
+| Disks                      | k3s's local-path storage                              | Talos mounts the data disk as a user volume, and Rancher's local-path provisioner serves volumes from it: Postgres, FreeScout's files. etcd and images stay on the boot disk.                                                                                                                                                                                                                      |
 | OS and Kubernetes upgrades | `unattended-upgrades` and `system-upgrade-controller` | The Talos and Kubernetes versions are pinned in `infra`. Renovate opens a PR for each new release. A scheduled workflow applies what's merged, Sundays at 3:00 Pacific: `talosctl upgrade` writes the new OS to the spare slot and reboots, and boots the old one again if the new one fails (2 to 4 minutes down); `talosctl upgrade-k8s` restarts the control plane while the apps keep serving. |
-| Deploy access            | IAP to the Kubernetes port                             | The same, plus Talos's API port (50000) for `infra`'s deploys only. Both ports' certificates list `127.0.0.1`, the tunnel's end. The API server trusts Google ID tokens (`--oidc-issuer-url=https://accounts.google.com`, username from `email`), and RBAC names `deploy-runner` and the maintainer. Talos's API takes a client certificate from `infra`'s state. |
-| Logs                     | Google's Ops Agent                                     | The Ops Agent can't be installed on Talos. A Fluent Bit DaemonSet sends container logs to Cloud Logging as its own Workload Identity, and Talos sends its own logs to it.                                                                    |
-| Pulling images           | Google's image credential plugin                       | A CronJob refreshes an image pull secret every 30 minutes, as an identity that may only read Artifact Registry.                                                                                                                              |
-| Memory for itself        | about 0.7 GB                                           | about 1.5 to 2 GB: etcd, the control plane, and Cilium. That leaves about 1.5 GB spare on 8 GB once Postgres moves in. If deploys run short, the requests come down (nothing bills them now), or the VM becomes a custom E2 with 12 GB, about $11 a month more on the commitment. |
-| Disk encryption          | Google's                                               | Google's, and Talos encrypts its own partitions with the VM's virtual TPM.                                                                                                                                                                   |
-| Rebuilding the VM        | From the boot script, with the data disk kept          | From the daily snapshot of the boot disk, which holds etcd. Or a new cluster, which Pulumi deploys again; the federation provider then reads the new cluster's keys.                                                                       |
-| Cost                     |                                                        | The same. Talos is open source, and Sidero's paid Omni service isn't used.                                                                                                                                                                  |
+| Deploy access              | IAP to the Kubernetes port                            | The same, plus Talos's API port (50000) for `infra`'s deploys only. Both ports' certificates list `127.0.0.1`, the tunnel's end. The API server trusts Google ID tokens (`--oidc-issuer-url=https://accounts.google.com`, username from `email`), and RBAC names `deploy-runner` and the maintainer. Talos's API takes a client certificate from `infra`'s state.                                  |
+| Logs                       | Google's Ops Agent                                    | The Ops Agent can't be installed on Talos. A Fluent Bit DaemonSet sends container logs to Cloud Logging as its own Workload Identity, and Talos sends its own logs to it.                                                                                                                                                                                                                          |
+| Pulling images             | Google's image credential plugin                      | A CronJob refreshes an image pull secret every 30 minutes, as an identity that may only read Artifact Registry.                                                                                                                                                                                                                                                                                    |
+| Memory for itself          | about 0.7 GB                                          | about 1.5 to 2 GB: etcd, the control plane, and Cilium. That leaves about 1.5 GB spare on 8 GB once Postgres moves in. If deploys run short, the requests come down (nothing bills them now), or the VM becomes a custom E2 with 12 GB, about $11 a month more on the commitment.                                                                                                                  |
+| Disk encryption            | Google's                                              | Google's, and Talos encrypts its own partitions with the VM's virtual TPM.                                                                                                                                                                                                                                                                                                                         |
+| Rebuilding the VM          | From the boot script, with the data disk kept         | From the daily snapshot of the boot disk, which holds etcd. Or a new cluster, which Pulumi deploys again; the federation provider then reads the new cluster's keys.                                                                                                                                                                                                                               |
+| Cost                       |                                                       | The same. Talos is open source, and Sidero's paid Omni service isn't used.                                                                                                                                                                                                                                                                                                                         |
 
 ## Recommendation
 
@@ -81,14 +81,14 @@ three weeks of work and a monthly few minutes of planned downtime.
 Partly. GKE's cluster fee is $0: Google's free credit covers one Autopilot cluster. What costs money is what comes with
 it. Once dev is gone ([cyc-seattle/platform#171](https://github.com/cyc-seattle/platform/issues/171), decision 3):
 
-| What                                                          | $/month      | Because of GKE?                                         |
-| ------------------------------------------------------------- | ------------ | ------------------------------------------------------- |
-| Prod pods (billed by what each pod asks for, not what it uses) | 57, or 41 right-sized | Yes. The same pods fit on a $31 to $49 VM.      |
-| Gateway load balancer                                         | 18           | Yes. A VM serves HTTPS itself.                          |
-| Cloud NAT and its address                                     | 7            | Yes. The nodes are private; a VM has its own address.   |
-| Cloud SQL, prod                                               | 28           | No. Postgres on the VM removes it (step 2).             |
-| Secret Manager, DNS, images, files, keys                      | 4.50         | No                                                      |
-| **Total**                                                     | **98 to 114** |                                                        |
+| What                                                           | $/month               | Because of GKE?                                       |
+| -------------------------------------------------------------- | --------------------- | ----------------------------------------------------- |
+| Prod pods (billed by what each pod asks for, not what it uses) | 57, or 41 right-sized | Yes. The same pods fit on a $31 to $49 VM.            |
+| Gateway load balancer                                          | 18                    | Yes. A VM serves HTTPS itself.                        |
+| Cloud NAT and its address                                      | 7                     | Yes. The nodes are private; a VM has its own address. |
+| Cloud SQL, prod                                                | 28                    | No. Postgres on the VM removes it (step 2).           |
+| Secret Manager, DNS, images, files, keys                       | 4.50                  | No                                                    |
+| **Total**                                                      | **98 to 114**         |                                                       |
 
 So about $66 to $82 of it is the cluster's way of running things, and $28 is the managed database.
 
@@ -99,14 +99,14 @@ Autopilot bills the request. A VM bills its size, however full it is, so many sm
 
 Prod, from the stacks:
 
-| App                                                    | Asks for (CPU, memory) | State                                      |
-| ------------------------------------------------------ | ---------------------- | ------------------------------------------ |
-| Directus                                               | 500m, 768 MiB          | Cloud SQL `directus`; files in Cloud Storage |
-| Authentik server and worker                            | 500m, 1 GiB; 100m, 512 MiB | Cloud SQL `authentik`                  |
-| FreeScout                                              | 100m, 512 MiB          | Cloud SQL `inbox`; a 10 GB disk            |
-| Listmonk                                               | 50m, 128 MiB           | Cloud SQL `listmonk`; pictures in Cloud Storage |
-| sail-team, 2 copies                                    | 50m, 64 MiB each       | none                                       |
-| clubspot-sync, gsuite-sync (hourly, a few minutes)     | 250m, 512 MiB each     | none                                       |
+| App                                                | Asks for (CPU, memory)     | State                                           |
+| -------------------------------------------------- | -------------------------- | ----------------------------------------------- |
+| Directus                                           | 500m, 768 MiB              | Cloud SQL `directus`; files in Cloud Storage    |
+| Authentik server and worker                        | 500m, 1 GiB; 100m, 512 MiB | Cloud SQL `authentik`                           |
+| FreeScout                                          | 100m, 512 MiB              | Cloud SQL `inbox`; a 10 GB disk                 |
+| Listmonk                                           | 50m, 128 MiB               | Cloud SQL `listmonk`; pictures in Cloud Storage |
+| sail-team, 2 copies                                | 50m, 64 MiB each           | none                                            |
+| clubspot-sync, gsuite-sync (hourly, a few minutes) | 250m, 512 MiB each         | none                                            |
 
 That's about 1.5 vCPU and 3.6 GB asked for, and much less used. With Postgres (about 1 GB) and k3s itself (about
 0.7 GB), it fits in 8 GB with room for a deploy to start each new copy before the old one stops. 4 GB
@@ -122,18 +122,18 @@ Amazon SES.
 
 One `e2-standard-2` in `us-west1`, in the existing VPC, so it reaches Cloud SQL's private address as the pods do now.
 
-| Item                                                   | $/month, on demand | 1-year commitment | 3-year commitment |
-| ------------------------------------------------------ | ------------------ | ----------------- | ----------------- |
-| `e2-standard-2` (2 vCPU, 8 GB)                         | 48.92              | 30.82             | 22.01             |
-| Boot disk, 20 GB balanced                              | 2.00               | 2.00              | 2.00              |
-| Data disk, 30 GB balanced (k3s, FreeScout's files)     | 3.00               | 3.00              | 3.00              |
-| Daily disk snapshots, 14 kept                          | 1.00               | 1.00              | 1.00              |
-| Static address, in use                                 | 3.65               | 3.65              | 3.65              |
-| Cloud SQL, prod (`db-g1-small`)                        | 28.00              | 28.00             | 28.00             |
-| Secret Manager                                         | 1.50               | 1.50              | 1.50              |
-| DNS, images, files, backups, keys                      | 3.00               | 3.00              | 3.00              |
-| Traffic out, logs, a few VM metrics                    | 2.00               | 2.00              | 2.00              |
-| **Total**                                              | **about 93**       | **about 75**      | **about 66**      |
+| Item                                               | $/month, on demand | 1-year commitment | 3-year commitment |
+| -------------------------------------------------- | ------------------ | ----------------- | ----------------- |
+| `e2-standard-2` (2 vCPU, 8 GB)                     | 48.92              | 30.82             | 22.01             |
+| Boot disk, 20 GB balanced                          | 2.00               | 2.00              | 2.00              |
+| Data disk, 30 GB balanced (k3s, FreeScout's files) | 3.00               | 3.00              | 3.00              |
+| Daily disk snapshots, 14 kept                      | 1.00               | 1.00              | 1.00              |
+| Static address, in use                             | 3.65               | 3.65              | 3.65              |
+| Cloud SQL, prod (`db-g1-small`)                    | 28.00              | 28.00             | 28.00             |
+| Secret Manager                                     | 1.50               | 1.50              | 1.50              |
+| DNS, images, files, backups, keys                  | 3.00               | 3.00              | 3.00              |
+| Traffic out, logs, a few VM metrics                | 2.00               | 2.00              | 2.00              |
+| **Total**                                          | **about 93**       | **about 75**      | **about 66**      |
 
 A commitment is for an amount of vCPU and memory in the region, not for this VM, and is billed monthly for its term.
 It can't be cancelled. A Spot VM is about $24, but Google can stop it at any time with 30 seconds' notice, and may not
@@ -143,28 +143,28 @@ start it again for a while. Fine for dev, not for prod.
 
 As A, without Cloud SQL, with a 50 GB data disk and a little more backup storage.
 
-| Item                                                   | $/month, on demand | 1-year | 3-year |
-| ------------------------------------------------------ | ------------------ | ------ | ------ |
-| `e2-standard-2`                                        | 48.92              | 30.82  | 22.01  |
-| Boot disk, 20 GB; data disk, 50 GB; snapshots          | 8.00               | 8.00   | 8.00   |
-| Static address                                         | 3.65               | 3.65   | 3.65   |
-| Continuous database backups in Cloud Storage           | 0.20               | 0.20   | 0.20   |
-| Secret Manager, DNS, images, files, backups, keys      | 4.50               | 4.50   | 4.50   |
-| Traffic out, logs, a few VM metrics                    | 2.00               | 2.00   | 2.00   |
-| **Total**                                              | **about 67**       | **about 49** | **about 40** |
+| Item                                              | $/month, on demand | 1-year       | 3-year       |
+| ------------------------------------------------- | ------------------ | ------------ | ------------ |
+| `e2-standard-2`                                   | 48.92              | 30.82        | 22.01        |
+| Boot disk, 20 GB; data disk, 50 GB; snapshots     | 8.00               | 8.00         | 8.00         |
+| Static address                                    | 3.65               | 3.65         | 3.65         |
+| Continuous database backups in Cloud Storage      | 0.20               | 0.20         | 0.20         |
+| Secret Manager, DNS, images, files, backups, keys | 4.50               | 4.50         | 4.50         |
+| Traffic out, logs, a few VM metrics               | 2.00               | 2.00         | 2.00         |
+| **Total**                                         | **about 67**       | **about 49** | **about 40** |
 
 ### C: a rented server, everything on it
 
 The 2026-11-21 AWS research guessed $25 to $50 for a rented server. Hetzner raised prices in April and June 2026, and
 its cheap plans are sold only in Europe:
 
-| Host, US region, 4 vCPU and 8 GB                        | Server       | With backups and the GCP parts that stay |
-| ------------------------------------------------------- | ------------ | ---------------------------------------- |
-| Hetzner CPX31, Hillsboro or Ashburn                     | about $73.50 | about $92                                |
-| DigitalOcean Basic, San Francisco                       | $48          | about $61                                |
-| Vultr, Seattle                                          | $40 to $48   | about $50 to $60                         |
-| OVHcloud VPS, Hillsboro                                 | about $7 to $15 (listings disagree) | about $15 to $25        |
-| Hetzner in Germany, for comparison                      | about $10 to $15 | about $15 to $20, 150 ms from Seattle |
+| Host, US region, 4 vCPU and 8 GB    | Server                              | With backups and the GCP parts that stay |
+| ----------------------------------- | ----------------------------------- | ---------------------------------------- |
+| Hetzner CPX31, Hillsboro or Ashburn | about $73.50                        | about $92                                |
+| DigitalOcean Basic, San Francisco   | $48                                 | about $61                                |
+| Vultr, Seattle                      | $40 to $48                          | about $50 to $60                         |
+| OVHcloud VPS, Hillsboro             | about $7 to $15 (listings disagree) | about $15 to $25                         |
+| Hetzner in Germany, for comparison  | about $10 to $15                    | about $15 to $20, 150 ms from Seattle    |
 
 Only OVHcloud is clearly cheaper than option B. What it gives up:
 
@@ -197,15 +197,15 @@ commitment on Autopilot's pods, about 20% off. About $85 to $90 a month. Nothing
 
 The same question in every option, with the same answer.
 
-|                                   | Docker Compose                                                                 | k3s                                                                           |
-| --------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| App code                          | Every stack rewritten, and `@cyc-seattle/platform`'s contract with it          | `WebService`, `Workload`, `ScheduledJob` stay; sail-team's stack is unchanged |
-| Deploys from Actions              | SSH as a user who can run Docker, which is root in effect, or a pull agent     | The Kubernetes API through an IAP tunnel, as the deploy's Google identity     |
-| Deploys without downtime          | Needs an add-on such as `docker-rollout`                                       | Built in: the new copy starts and passes its check before the old one stops  |
-| Scheduled syncs                   | cron or a scheduler container; no failed-run alerts                            | CronJobs, as now                                                              |
-| Secrets                           | An env file on the disk                                                        | Kubernetes Secrets that Pulumi writes, as now, encrypted on disk             |
-| Memory for itself                 | about 100 MB                                                                    | about 700 MB                                                                  |
-| What we've tried                  | The substrate VM, until October 2026, which deployed from laptops over root SSH | Integration tests in CI could use the same k3s                              |
+|                          | Docker Compose                                                                  | k3s                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| App code                 | Every stack rewritten, and `@cyc-seattle/platform`'s contract with it           | `WebService`, `Workload`, `ScheduledJob` stay; sail-team's stack is unchanged |
+| Deploys from Actions     | SSH as a user who can run Docker, which is root in effect, or a pull agent      | The Kubernetes API through an IAP tunnel, as the deploy's Google identity     |
+| Deploys without downtime | Needs an add-on such as `docker-rollout`                                        | Built in: the new copy starts and passes its check before the old one stops   |
+| Scheduled syncs          | cron or a scheduler container; no failed-run alerts                             | CronJobs, as now                                                              |
+| Secrets                  | An env file on the disk                                                         | Kubernetes Secrets that Pulumi writes, as now, encrypted on disk              |
+| Memory for itself        | about 100 MB                                                                    | about 700 MB                                                                  |
+| What we've tried         | The substrate VM, until October 2026, which deployed from laptops over root SSH | Integration tests in CI could use the same k3s                                |
 
 Compose is simpler to read on the box, but every advantage is something we already moved away from once. Coolify,
 Dokku and Kamal, which add a deploy tool on top, were not looked at closely: each adds a hand-configured layer that the
@@ -231,15 +231,15 @@ code doesn't describe.
 Today, Directus and Authentik's server already run one copy each, and Cloud SQL is in one zone, so the platform is
 already not highly available. What changes:
 
-| Event                                   | GKE today                                         | VM (A or B)                                                     | Rented server (C)                          |
-| --------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------ |
-| App deploy                              | No downtime: the new copy starts first             | The same                                                        | The same                                   |
-| Google's or the host's maintenance      | Autopilot moves pods: about a minute, now and then | None: Google live-migrates the VM                               | A reboot when the host says, a few minutes |
-| OS security updates                     | Google's, invisible                               | A reboot when one needs it, Sundays at 3:00, about 3 minutes     | The same                                   |
-| k3s upgrade                             | Google's                                          | About a minute per app, in the same window                      | The same                                   |
-| The machine fails                       | Pods move: a few minutes                          | Google restarts the VM on another machine, disks kept: about 5 minutes | Hours, or a restore from backups   |
-| The zone fails                          | Down until Cloud SQL's zone is back               | The same. Or rebuild in another zone from snapshots, about an hour, by hand | The same, if the host has another site |
-| Database maintenance                    | Cloud SQL's window, a minute or two               | B: Postgres updates in the Sunday window, seconds; a major version every few years, a planned 15 minutes | The same as B |
+| Event                              | GKE today                                          | VM (A or B)                                                                                              | Rented server (C)                          |
+| ---------------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| App deploy                         | No downtime: the new copy starts first             | The same                                                                                                 | The same                                   |
+| Google's or the host's maintenance | Autopilot moves pods: about a minute, now and then | None: Google live-migrates the VM                                                                        | A reboot when the host says, a few minutes |
+| OS security updates                | Google's, invisible                                | A reboot when one needs it, Sundays at 3:00, about 3 minutes                                             | The same                                   |
+| k3s upgrade                        | Google's                                           | About a minute per app, in the same window                                                               | The same                                   |
+| The machine fails                  | Pods move: a few minutes                           | Google restarts the VM on another machine, disks kept: about 5 minutes                                   | Hours, or a restore from backups           |
+| The zone fails                     | Down until Cloud SQL's zone is back                | The same. Or rebuild in another zone from snapshots, about an hour, by hand                              | The same, if the host has another site     |
+| Database maintenance               | Cloud SQL's window, a minute or two                | B: Postgres updates in the Sunday window, seconds; a major version every few years, a planned 15 minutes | The same as B                              |
 
 Keeping deploys near zero downtime on one machine needs only what the apps already have: readiness checks, and
 memory spare for one extra copy at a time. FreeScout stops before it starts, because of its disk, as it does now.
@@ -290,12 +290,12 @@ Step 1 changes nothing: Cloud SQL's backups and the twice-daily copies to `csc-b
 
 Step 2 replaces what Cloud SQL did:
 
-| What                                   | Today (Cloud SQL)                         | Step 2 (Postgres on the VM)                                                    |
-| -------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------ |
-| Restore to any minute in the last week | Cloud SQL's point-in-time recovery        | WAL-G (open source) streams Postgres's changes to a bucket, with a nightly full backup, 7 days kept |
-| Twice-daily copies to `csc-backups`    | A Workflow asks Cloud SQL to export       | A CronJob runs `pg_dump` and uploads, with the same names, retention and absence alerts. It may only create copies, as now |
-| Whole-disk backup                      | none                                      | Daily snapshots, 14 days                                                       |
-| Restore drill                          | A throwaway Cloud SQL instance            | The copy loads into Postgres on the drill-runner's own machine: no instance, quicker, free |
+| What                                   | Today (Cloud SQL)                   | Step 2 (Postgres on the VM)                                                                                                |
+| -------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Restore to any minute in the last week | Cloud SQL's point-in-time recovery  | WAL-G (open source) streams Postgres's changes to a bucket, with a nightly full backup, 7 days kept                        |
+| Twice-daily copies to `csc-backups`    | A Workflow asks Cloud SQL to export | A CronJob runs `pg_dump` and uploads, with the same names, retention and absence alerts. It may only create copies, as now |
+| Whole-disk backup                      | none                                | Daily snapshots, 14 days                                                                                                   |
+| Restore drill                          | A throwaway Cloud SQL instance      | The copy loads into Postgres on the drill-runner's own machine: no instance, quicker, free                                 |
 
 The quarterly drill adds one check: restore WAL-G's backup to a chosen minute, and check the newest row is from just
 before it.
