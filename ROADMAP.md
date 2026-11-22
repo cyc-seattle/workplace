@@ -22,16 +22,16 @@ The 2027 season sets the order. These come from CSC's 2027 strategic plan.
 
 ## Website launch, Dec 23
 
-The public website leaves Wix with the 2027 programs and prices. Its pages come from the platform's own data, and its forms reach tools CSC runs itself ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150)). Everything below is P1. Backups ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170)) aren't needed by then.
+The public website leaves Wix with the 2027 programs and prices. Its pages come from the platform's own data, and its forms reach tools CSC runs itself ([cyc-seattle/platform#150](https://github.com/cyc-seattle/platform/issues/150)). Everything below is P1. Backups ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170)) aren't needed by then. The preview is at csc-website.web.app.
 
-1. 📋 Crew tracks volunteers and staff, with positions, terms, qualifications, and the public profiles the crew page shows ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263)).
-2. 📋 Program pages keep the site's structure and link to the catalog programs they cover, with three team categories ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332)).
-3. 📋 A program page's dates, prices and Register button come only from the Clubspot camps its classes link to, so the 2027 camps must be in Clubspot to show prices ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333)).
-4. 📋 FreeScout as the shared inbox for info@ ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182)).
-5. 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180)).
-6. 📋 The contact form emails info@, and the newsletter form signs up to Listmonk ([cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)).
+1. ✅ Crew tracks volunteers and staff, and the site's Our Crew and Meet Our Crew come from it ([cyc-seattle/platform#263](https://github.com/cyc-seattle/platform/issues/263)). Splitting the coaches into doublehanded and singlehanded lists is left.
+2. ✅ Program pages keep the site's structure and link to one catalog of offerings, with three team categories ([cyc-seattle/platform#332](https://github.com/cyc-seattle/platform/issues/332)).
+3. 🚧 Dates, prices, ages, spots and Register come from the catalog and Clubspot ([cyc-seattle/platform#333](https://github.com/cyc-seattle/platform/issues/333)). The 2027 offerings go in after the Dec 15 vote, then the Clubspot camps are made from them.
+4. 🚧 FreeScout runs in prod as the shared inbox ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182)). Left: the inbox@ user, buying its modules, and connecting info@.
+5. 🚧 Listmonk runs on the platform for the newsletter ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180)). Left: the AWS account and SES, the DNS move, and importing Mailchimp's list.
+6. ✅ The contact form emails info@, and the newsletter form signs up to Listmonk ([cyc-seattle/csc-website#9](https://github.com/cyc-seattle/csc-website/issues/9)). They work on the public domain once DNS moves.
 7. 📋 DNS in Cloud DNS with Google DKIM ([cyc-seattle/platform#210](https://github.com/cyc-seattle/platform/issues/210)), then the domain moves to the new site and Wix is cancelled ([cyc-seattle/platform#211](https://github.com/cyc-seattle/platform/issues/211)).
-8. 📋 Publish on each content change ([cyc-seattle/csc-website#8](https://github.com/cyc-seattle/csc-website/issues/8)), and the Google Analytics tag ([cyc-seattle/csc-website#10](https://github.com/cyc-seattle/csc-website/issues/10)).
+8. ✅ The site publishes on each content change ([cyc-seattle/csc-website#8](https://github.com/cyc-seattle/csc-website/issues/8)). 📋 The Google Analytics tag ([cyc-seattle/csc-website#10](https://github.com/cyc-seattle/csc-website/issues/10)).
 
 ## Where things stand
 
