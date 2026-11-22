@@ -115,7 +115,8 @@ The public website leaves Wix with the 2027 programs and prices. Its pages come 
 ### Keeping it running
 
 - 📋 Backups outside Cloud SQL, a restore drill, and uptime checks ([cyc-seattle/platform#170](https://github.com/cyc-seattle/platform/issues/170), P1).
-- 📋 Lower the cloud bill ([cyc-seattle/platform#171](https://github.com/cyc-seattle/platform/issues/171)).
+- 🚧 Lower the cloud bill: paid metrics off, pods right-sized, old images deleted, a $150 budget alert, and dev dropped once tests run in CI ([cyc-seattle/platform#171](https://github.com/cyc-seattle/platform/issues/171)).
+- 📋 Run the platform on one Talos VM instead of GKE, after the launch work merges ([cyc-seattle/platform#360](https://github.com/cyc-seattle/platform/issues/360), P2).
 - 📋 Drop the merge queue: `main` deploys to dev after each merge, integration tests run after each deploy, and only maintainers merge while contributors push branches ([cyc-seattle/platform#280](https://github.com/cyc-seattle/platform/issues/280), P1).
 - ✅ A style guide in sail-team's Storybook and a ux-review skill ([cyc-seattle/sail-team#101](https://github.com/cyc-seattle/sail-team/issues/101)), a schema-review skill ([cyc-seattle/platform#275](https://github.com/cyc-seattle/platform/issues/275)), and a docs site for platform ([cyc-seattle/platform#278](https://github.com/cyc-seattle/platform/issues/278)).
 - 📋 Engineering upkeep lives in each repo's P2 and P3 issues and isn't listed here.
