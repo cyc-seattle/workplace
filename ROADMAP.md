@@ -40,7 +40,7 @@ The public website leaves Wix with the 2027 programs and prices. Its pages come 
 - ✅ Planning model, engine, and saved plan versions in Directus ([cyc-seattle/workplace#6](https://github.com/cyc-seattle/workplace/issues/6) phase 2).
 - ✅ Planning pages in sail-team: each plan's P&L, versions, compare, live draft numbers, reports on real data ([cyc-seattle/sail-team#58](https://github.com/cyc-seattle/sail-team/issues/58), [cyc-seattle/sail-team#67](https://github.com/cyc-seattle/sail-team/pull/67)).
 - 🚧 Build the 2027 plan with a planner's agent. This is the MVP's last step ([cyc-seattle/workplace#6](https://github.com/cyc-seattle/workplace/issues/6) step 13).
-- 🚧 Start next year's plan from this year's, empty, for the agent to fill in with next year's dates ([cyc-seattle/platform#369](https://github.com/cyc-seattle/platform/issues/369)).
+- 🚧 Start next year's plan as a copy of this year's, for the agent to move the dates ([cyc-seattle/platform#369](https://github.com/cyc-seattle/platform/issues/369)).
 - 🚧 Planning as a set of easier reports ([cyc-seattle/sail-team#63](https://github.com/cyc-seattle/sail-team/issues/63)).
 - 📋 Free-text rules and a planning agent that assigns staff and boats ([cyc-seattle/platform#149](https://github.com/cyc-seattle/platform/issues/149)).
 - 📋 A QuickBooks Online sync into `actuals`, the step before tracking against the plan ([cyc-seattle/platform#274](https://github.com/cyc-seattle/platform/issues/274)).
