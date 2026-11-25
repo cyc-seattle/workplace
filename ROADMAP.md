@@ -97,6 +97,7 @@ The public website leaves Wix with the 2027 programs and prices. Its pages come 
 - 📋 Newsletter on Listmonk and Amazon SES, in place of Mailchimp, by Dec 23 ([cyc-seattle/platform#180](https://github.com/cyc-seattle/platform/issues/180), P1).
 - 📋 Newsletter subscribers become People in the CRM, after the launch ([cyc-seattle/platform#339](https://github.com/cyc-seattle/platform/issues/339)).
 - 📋 Shared inbox on FreeScout, in place of Google's Collaborative Inbox, by Dec 23 ([cyc-seattle/platform#182](https://github.com/cyc-seattle/platform/issues/182), P1).
+- 📋 Photo albums in Directus, for a rotating sign-in background, website galleries, and event slideshows ([cyc-seattle/platform#383](https://github.com/cyc-seattle/platform/issues/383), P3).
 - 📋 Replace Todoist with a self-hosted task manager ([cyc-seattle/platform#181](https://github.com/cyc-seattle/platform/issues/181)).
 - 📋 Read Clubspot's events, messages, e-signatures, and accounting ([cyc-seattle/clubspot-sdk#11](https://github.com/cyc-seattle/clubspot-sdk/issues/11)).
 
