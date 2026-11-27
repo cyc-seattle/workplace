@@ -208,6 +208,67 @@ executor, and whose audits report and never prune:
   to it, in whichever Financial Plan is compared. A catalog offering no plan offering links to, such as a clinic added
   in June, counts as unplanned.
 
+## How Clubspot's camps, sessions and classes map to the catalog
+
+The maintainer's mapping: a Clubspot **camp** is like a plan **term**, a **class** is a **program**, and one class in one
+**session** (a class-session) is one **offering**. Read from prod on 2026-11-27, read-only.
+
+| Clubspot        | Catalog and plan                       | Prod today                                                                                                                                                                                                |
+| --------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Camp            | A registration form; within a term     | One form per camp: all 25 forms have a camp. A term holds several camps: Summer 2026 has Summer Sailing Camps, Summer Singlehanded Race Teams, Summer High-performance programs and Summer 420 Race Team. |
+| Class           | A program                              | A class's offerings share one program, and clubspot-sync sets the class's `program_id` from them.                                                                                                         |
+| Session         | A dated part of a camp, such as a week | 371 sessions. Every registration entry names its session.                                                                                                                                                 |
+| Class × session | An offering                            | 125 of 147 offerings link a session. 22 link only a class and cover all its sessions.                                                                                                                     |
+
+**Why 2026 has season-long offerings.** clubspot-sync's CRM offerings followed Clubspot's caps: a class with a cap that
+covers every session (a cap with no session) became one offering for the whole camp
+(`clubspotOfferings` in `src/syncs/clubspot/offerings.ts`), and
+[cyc-seattle/platform#347](https://github.com/cyc-seattle/platform/pull/347) kept those rows. In 2026's Summer Sailing
+Camps, Guppies, Youth Beginner, Teen Sailing and Youth Intermediate have such a cap (Guppies 10) and a cap in each
+session (Guppies 11 or 12), so each became one season offering while Youth Advanced, Teen Adventure and Teen Advanced,
+with session caps only, became one per week. Adult Learn to Sail (cap 30, and 7 to 9 a session) and Open Boating went
+the same way.
+
+**Registrations know their session.** All 685 registrations on the 22 class-wide offerings come from an entry with a
+session. Guppies' 126 span all 10 weeks, Youth Beginner's 222 the same, Adult Learn to Sail's 39 its 8 sessions.
+
+**How a registration finds its offering.** clubspot-sync looks up the class's whole-camp offering first, then the class
+and session's (`offeringIdOf`). A changed link moves a registration on the next run; it never deletes one.
+
+**Where it differs from the mapping:**
+
+- 22 offerings are a class for a whole camp, not a class-session.
+- The sync prefers a class's whole-camp offering to its class-session one, and `offering_differs` compares a class with
+  a session-less cap as one offering.
+- A camp isn't a term: a term holds several camps. A registration form already stands for one camp in the catalog.
+- The plan's offerings don't always follow sessions: Adult Learn to Sail is planned by month ("Weekend May"), where
+  Clubspot has two- to three-week sessions ("Tuesdays & Thursdays 5:00-8:00", May 12 to 28).
+
+**Decided (M1):** an offering is always one Clubspot class in one session; once linked, it links both. No offering
+covers a whole camp. A registration form is the catalog's camp, one each, so there's no catalog table for camps or
+terms. A class is a program: every offering of one class is of one program.
+
+**Decided (M2):** a reviewed migration splits each whole-camp offering into one offering per session its class is
+offered in, with the same program, form and price, the session's dates, name and cap, linked to the class and the
+session. Each registration moves to the offering for its entry's session, and the emptied whole-camp offering is
+deleted. It ships as its own platform PR right after step 1, with the clubspot-sync change that stops making and
+preferring whole-camp offerings.
+
+**Decided (M3):** the mapping is settled.
+
+- A plan offering is one class-session too, linking one catalog offering. In one Financial Plan, two plan offerings
+  shouldn't link the same catalog offering; Directus can't make the pair unique, so the engine warns, and the sync
+  shows it.
+- A 2026 plan offering that matches no session, such as Adult Learn to Sail planned by month or "Opti Clinics Summer"
+  covering several clinics, gets a catalog offering of its own, linked to no Clubspot class or session, as charters
+  and storage are. Frozen plan offerings aren't split or merged.
+- The 2026 match list runs again after the split and after a Catalog Writer links the 2027 Winter Singlehanded
+  classes. A match is then exact: the same program and the same dates as a class-session. Anything else is reviewed.
+- From 2027, planners plan Adult Learn to Sail and clinics as the sessions Clubspot will sell: a practice for the
+  `allocate-plan` skill and the docs, not an engine rule.
+
+The order: PR 1 (keys become ids); after step 1, the split PR; the match list again; then PR 2.
+
 ## Migrating existing data
 
 One reviewed Directus migration in `stacks/backend/migrations/`, run once at start, tested in PGlite, a no-op when run
